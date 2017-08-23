@@ -9,14 +9,31 @@
  */
 
 ?>
+
+<?php
+
+if (!function_exists('getAmazonButtonCounter')) {
+    function getAmazonButtonCounter()
+    {
+        static $counter;
+        $counter = ($counter === null) ? 1: ++$counter;
+        return $counter;
+    }
+}
+
+$buttonCounter = getAmazonButtonCounter();
+
+?>
+
+
 <?php if ($this->isAmazonPayButtonEnabled()): ?>
 
-  <div id="<?php echo $this->getAmazonPayButtonId(); ?>" class="amazon-pay-button" style="display:inline-block;margin:0 auto 10px;text-align:center;"></div>
+  <div id="<?php echo $this->getAmazonPayButtonId(); ?>_<?= $buttonCounter ?>" class="amazon-pay-button" style="display:inline-block;margin:0 auto 10px;text-align:center;"></div>
 
   <script type="text/javascript">
     var authRequest;
 
-    AmazonPaymentsCallbacks["<?php echo $this->getAmazonPayButtonId(); ?>"] = function() {
+    AmazonPaymentsCallbacks["<?php echo $this->getAmazonPayButtonId(); ?>_<?= $buttonCounter ?>"] = function() {
 
         var AmazonButtonOptions = {
             type: "<?php echo $this->getButtonType(); ?>",
@@ -48,7 +65,7 @@
             }
         };
 
-        OffAmazonPayments.Button("<?php echo $this->getAmazonPayButtonId(); ?>", "<?php echo $this->getSellerId(); ?>", AmazonButtonOptions);
+        OffAmazonPayments.Button("<?php echo $this->getAmazonPayButtonId(); ?>_<?= $buttonCounter ?>", "<?php echo $this->getSellerId(); ?>", AmazonButtonOptions);
 
     }
   </script>
