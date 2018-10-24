@@ -39,11 +39,6 @@
                     </token>
                 </entities>
             </login_mysql4>
-            <sales>
-                <rewrite>
-                    <order_creditmemo>Amazon_Payments_Model_Order_Creditmemo</order_creditmemo>
-                </rewrite>
-            </sales>
         </models>
         <helpers>
             <amazon_payments>
